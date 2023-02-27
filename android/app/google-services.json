@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1080823891565",
+    "project_id": "ola-dev-2c0b9",
+    "storage_bucket": "ola-dev-2c0b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080823891565:android:1845a6946e3322179a6164",
+        "android_client_info": {
+          "package_name": "com.olaspagym.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080823891565-gjd6sqrqikr5tbdftoc3lcai1no4cmat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZNKOgtlsqfZlEvegkSKStVgumICGZvKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080823891565-dnrmj96mso3opvkr1io49ntn5gqf7la2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1080823891565-6cjmksqeufvlsgn9unrp368bnr7df4k4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.olaspagym.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
