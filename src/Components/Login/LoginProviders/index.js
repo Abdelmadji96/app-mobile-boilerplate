@@ -1,10 +1,13 @@
 import React from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import {
+  Image, TouchableOpacity, View, Platform,
+} from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { Text } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 import { logError } from '../../../Utils/function';
@@ -16,6 +19,7 @@ GoogleSignin.configure({
 
 const LoginProviders = () => {
   const { navigate } = useNavigation();
+  const isAppleDevice = Platform.OS === 'ios';
 
   const googleSignIn = async () => {
     try {
@@ -45,6 +49,12 @@ const LoginProviders = () => {
         <Feather name="phone" size={26} color={Colors.black} />
         <Text style={styles.googleButtonText}>with Phone number</Text>
       </TouchableOpacity>
+      {isAppleDevice && (
+        <TouchableOpacity style={styles.googleButton}>
+          <Ionicons name="logo-apple" size={30} />
+          <Text style={styles.googleButtonText}>With appel ID</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
