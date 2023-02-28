@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
+
 import Colors from '../../Utils/constants/Colors';
+import { responsiveFontSize } from '../../Utils/function';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,13 +10,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    margin: 15,
+    marginHorizontal: 15,
   },
   customInputStyle: {
     backgroundColor: Colors.white,
   },
   outlineStyle: {
     borderColor: Colors.mediumGray,
+  },
+  cta: {
+    marginTop: 10,
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+  },
+  errorTxt: {
+    fontSize: responsiveFontSize(11),
+    color: 'red',
+    marginLeft: 20,
   },
 });
 

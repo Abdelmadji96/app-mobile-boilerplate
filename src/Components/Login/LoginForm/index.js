@@ -21,6 +21,7 @@ const LoginForm = () => {
       setLoading(true);
       const { email, password } = values;
       await auth().signInWithEmailAndPassword(email, password);
+      console.log('LOGGED');
     } catch (error) {
       logError(error);
       if (error.code === 'auth/user-not-found') {

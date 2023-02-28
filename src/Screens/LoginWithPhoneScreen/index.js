@@ -1,18 +1,20 @@
 /* eslint-disable default-case-last */
 import React, { useState } from 'react';
 import { ScrollView, ToastAndroid } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, Caption, TextInput } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
+import { useFormik } from 'formik';
 
 import styles from './styles';
 import { logError } from '../../Utils/function';
 import Colors from '../../Utils/constants/Colors';
+import phoneSchema from './phoneSchema';
 
 const LoginWithPhoneScreen = () => {
-  const [phone, setPhone] = useState('');
   const [code, setCode] = useState('');
   const [codeSent, setCodeSent] = useState(false);
   const [verificationId, setVerificationId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleCodeSentCallBack = (verificationIdP) => {
     setCodeSent(true);
@@ -23,15 +25,17 @@ const LoginWithPhoneScreen = () => {
     try {
       const credential = auth.PhoneAuthProvider.credential(verificationId, code);
       await auth().signInWithCredential(credential);
+      console.log('CONFIRMED');
     } catch (error) {
       logError('Error with phone credentials', error);
-      ToastAndroid.show("Une erreure c'est produite, veuillez réessayer!", ToastAndroid.SHORT);
+      // ToastAndroid.show("Une erreure c'est produite, veuillez réessayer!", ToastAndroid.SHORT);
     }
   };
 
-  const handleSignInWithPhone = async (phoneNumber) => {
+  const handleSignInWithPhone = async (values) => {
+    setLoading(true);
     try {
-      auth().verifyPhoneNumber(phoneNumber, true)
+      auth().verifyPhoneNumber(values.phone, true)
         .on('state_changed', async (phoneAuthSnapshot) => {
           switch (phoneAuthSnapshot.state) {
             case auth.PhoneAuthState.AUTO_VERIFIED:
@@ -52,25 +56,48 @@ const LoginWithPhoneScreen = () => {
         });
     } catch (error) {
       logError(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const {
+    handleSubmit, values, handleChange, errors,
+  } = useFormik({
+    initialValues: {
+      phone: '',
+    },
+    onSubmit: handleSignInWithPhone,
+    validationSchema: phoneSchema,
+    validateOnChange: false,
+  });
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {!codeSent ? (
         <>
           <TextInput
-            value={phone}
-            onChangeText={setPhone}
+            value={values.phone}
+            onChangeText={handleChange('phone')}
             keyboardType="phone-pad"
-            placeholder="Phone number"
+            placeholder="+213XXXXXXXXX"
             style={[styles.input, styles.customInputStyle]}
             placeholderTextColor={Colors.mediumGray}
             outlineStyle={styles.outlineStyle}
             label="Phone number"
             mode="outlined"
+            error={errors.phone}
           />
-          <Button onPress={() => handleSignInWithPhone(phone)}>Next</Button>
+          {errors.phone && <Caption style={styles.errorTxt}>{errors.phone}</Caption>}
+
+          <Button
+            mode="contained"
+            onPress={handleSubmit}
+            loading={loading}
+            style={styles.cta}
+          >
+            Next
+          </Button>
         </>
       ) : (
         <>
@@ -85,7 +112,13 @@ const LoginWithPhoneScreen = () => {
             label="Code from SMS"
             mode="outlined"
           />
-          <Button onPress={() => signWithCredentials(code)}>Confirm SMS code</Button>
+          <Button
+            mode="contained"
+            style={styles.cta}
+            onPress={() => signWithCredentials(code)}
+          >
+            Confirm SMS code
+          </Button>
         </>
       )}
     </ScrollView>
