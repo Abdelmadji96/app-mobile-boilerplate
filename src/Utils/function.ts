@@ -19,4 +19,4 @@ export const responsiveFontSize = (fontSize: number, standardScreenHeight = 740)
   return Math.round(heightPercent);
 };
 
-export const logError = (err: unknown[]) => console.log('Something was wrong whene ', err);
+export const logError = (err: unknown | unknown[]) => console.log('Something was wrong whene ', err);

@@ -5,6 +5,7 @@ import { configureFonts, MD2LightTheme, Provider as PaperProvider } from 'react-
 import 'react-native-gesture-handler';
 
 import RootNavigator from './src/Navigation/RootNavigator';
+import AuthProvider from './src/Context/auth';
 
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
@@ -38,11 +39,13 @@ const theme = {
 
 const App = () => (
   <PaperProvider theme={theme}>
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.safeAreaViewContainer}>
-        <RootNavigator />
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <AuthProvider>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.safeAreaViewContainer}>
+          <RootNavigator />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </AuthProvider>
   </PaperProvider>
 );
 
