@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.olagym.app">
-
+xmlns:tools="http://schemas.android.com/tools"
+>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
       android:name=".MainApplication"
@@ -23,5 +25,10 @@ package="com.olagym.app">
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+       <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/my_custom_color"
+            tools:replace="android:resource"
+            />
     </application>
 </manifest>

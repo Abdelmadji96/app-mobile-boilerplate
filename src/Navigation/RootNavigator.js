@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
-
 import auth from '@react-native-firebase/auth';
 
 import AppStack from './AppStack';
 import { AuthContext } from '../Context/auth';
 import { AUTHORIZE_SIGNUP, LOGIN_SUCCESS } from '../Context/actions';
+import RemotePushController from '../Services/RemotePushController';
 
 const RootNavigator = () => {
   const { dispatch } = useContext(AuthContext);
@@ -27,9 +27,15 @@ const RootNavigator = () => {
     onAuthChanged();
   }, [onAuthChanged]);
 
+  useEffect(() => {
+    // firebasePushSetup();
+    // notificationListener();
+  }, []);
+
   return (
     <NavigationContainer ref={navigationRef}>
       <AppStack />
+      <RemotePushController />
     </NavigationContainer>
   );
 };
