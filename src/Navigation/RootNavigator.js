@@ -6,6 +6,7 @@ import AppStack from './AppStack';
 import { AuthContext } from '../Context/auth';
 import { AUTHORIZE_SIGNUP, LOGIN_SUCCESS } from '../Context/actions';
 import RemotePushController from '../Services/RemotePushController';
+import ForegroundHandler from '../Services/ForegroundHandler';
 
 const RootNavigator = () => {
   const { dispatch } = useContext(AuthContext);
@@ -34,6 +35,7 @@ const RootNavigator = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
+      <ForegroundHandler />
       <AppStack />
       <RemotePushController />
     </NavigationContainer>

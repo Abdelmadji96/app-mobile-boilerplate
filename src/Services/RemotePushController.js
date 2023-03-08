@@ -73,7 +73,7 @@ const RemotePushController = () => {
     const enabled = requestUserPermission();
     if (enabled) {
       pushNotificationConfig();
-      getToken();
+      // getToken();
       notificationListener();
     }
   }, [notificationListener]);

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { SafeAreaView, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { configureFonts, MD2LightTheme, Provider as PaperProvider } from 'react-native-paper';
-import messaging from '@react-native-firebase/messaging';
 
 import 'react-native-gesture-handler';
 
@@ -39,26 +38,16 @@ const theme = {
   fonts: configureFonts({ config: fontConfig, isV3: false }),
 };
 
-const App = () => {
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.log('remoteMessage', remoteMessage);
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage.notification.body));
-    });
-    return unsubscribe;
-  }, []);
-
-  return (
-    <PaperProvider theme={theme}>
-      <AuthProvider>
-        <SafeAreaProvider>
-          <SafeAreaView style={styles.safeAreaViewContainer}>
-            <RootNavigator />
-          </SafeAreaView>
-        </SafeAreaProvider>
-      </AuthProvider>
-    </PaperProvider>
-  );
-};
+const App = () => (
+  <PaperProvider theme={theme}>
+    <AuthProvider>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.safeAreaViewContainer}>
+          <RootNavigator />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </AuthProvider>
+  </PaperProvider>
+);
 
 export default App;
