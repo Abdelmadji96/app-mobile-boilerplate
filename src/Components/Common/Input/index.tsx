@@ -1,11 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TextInput, Caption } from 'react-native-paper';
-import { View } from 'react-native';
+import { KeyboardType, View, ViewStyle } from 'react-native';
+
 import styles from './styles';
 import Colors from '../../../Utils/constants/Colors';
 
-const Input = (props) => {
+type InputProps = {
+  placeholder?: string
+  keyboardType?: KeyboardType | undefined
+  onChangeText: () => void
+  error?: string
+  value?: string
+  inputStyles?: ViewStyle
+  errorMessage?: string
+  wrapperStyles?: ViewStyle
+  borderRadius?: number
+  outlineStyle?: ViewStyle
+  handleBlur?: () => void
+}
+
+const Input: React.FC<InputProps> = (props) => {
   const {
     placeholder, keyboardType, onChangeText, error, value, inputStyles, errorMessage, wrapperStyles, borderRadius, outlineStyle, handleBlur,
   } = props;
@@ -32,28 +47,26 @@ const Input = (props) => {
 
 Input.propTypes = {
   placeholder: PropTypes.string,
-  onChangeText: PropTypes.func,
+  onChangeText: PropTypes.func.isRequired,
   handleBlur: PropTypes.func,
   error: PropTypes.string,
   value: PropTypes.string,
-  keyboardType: PropTypes.string,
   errorMessage: PropTypes.string,
-  inputStyles: PropTypes.shape(),
-  wrapperStyles: PropTypes.shape(),
-  outlineStyle: PropTypes.shape(),
+  inputStyles: PropTypes.shape({}),
+  wrapperStyles: PropTypes.shape({}),
+  outlineStyle: PropTypes.shape({}),
   borderRadius: PropTypes.number,
 };
 
 Input.defaultProps = {
-  onChangeText: undefined,
   handleBlur: undefined,
   placeholder: '',
-  keyboardType: 'default',
   inputStyles: undefined,
   error: undefined,
   wrapperStyles: undefined,
   errorMessage: undefined,
-  value: null,
+  value: undefined,
+  keyboardType: 'default',
   borderRadius: 8,
   outlineStyle: undefined,
 };

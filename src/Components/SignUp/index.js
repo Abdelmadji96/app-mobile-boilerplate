@@ -54,6 +54,7 @@ const SignUpForm = () => {
           outlineStyle={styles.outlineStyle}
           errors={errors.email}
           errorMessage={errors.email}
+          keyboardType="default"
         />
         <Input
           value={values.password}
@@ -64,6 +65,7 @@ const SignUpForm = () => {
           outlineStyle={styles.outlineStyle}
           errors={errors.password}
           errorMessage={errors.password}
+          keyboardType="default"
         />
       </View>
       <View style={styles.btnContainer}>
